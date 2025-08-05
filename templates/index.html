@@ -188,10 +188,19 @@
             text-align: center;
         }
         .sort-button {
-            background: none; border: none; color: var(--text-secondary);
-            font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700;
-            margin: 0 0.75rem; cursor: pointer; transition: color 0.2s;
-        }
+    background: none; border: none; color: var(--text-secondary);
+    font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700;
+    margin: 0 0.75rem; cursor: pointer; transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.sort-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
         .sort-button:hover { color: var(--text-primary); }
         .sort-button.active { color: var(--primary); }
         #reset-button {
@@ -474,11 +483,16 @@
                     <path class="cls-5" d="M2691.36,1419.78c-99.12,8.94-136.51-151.68-29.5-167.61,109.21-7.77,165.59,166.38,29.5,167.61Z"/>
                 </svg>
                 <div id="sort-controls">
-                    <button class="sort-button active" data-sort="count">Popularity</button>
-                    <button class="sort-button" data-sort="rating">Rating</button>
-                    <button class="sort-button" data-sort="year">Year</button>
-                    <button class="sort-button" data-sort="runtime">Runtime</button>
-                </div>
+    <button class="sort-button active" data-sort="count">
+       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 951.78 529.47">
+  <path d="M4.33,237.75C15.04,115.93,138.81,2.91,262.28,13.37c61.11-.45,119.64,26.14,164.1,67.1,16.41,8.62,29.71,46.7,49.46,36.79C658-100.99,969.68,1.57,950.98,291.58c-6.02,139.92-158.01,254.78-294.22,234.3-98.74,4.96-173.24-127.89-220-93.01C249.7,623.78-38.76,517.69,4.33,237.75"/>
+</svg>
+        <span>Match</span>
+    </button>
+    <button class="sort-button" data-sort="rating">Rating</button>
+    <button class="sort-button" data-sort="year">Year</button>
+    <button class="sort-button" data-sort="runtime">Runtime</button>
+</div>
                 <a href="/" id="reset-button">New Search</a>
             </div>
             {% if movies %}
