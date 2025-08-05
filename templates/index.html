@@ -113,53 +113,88 @@
             cursor: pointer;
         }
         .movie-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        .movie-card-users {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+            display: flex;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .movie-card:hover .movie-card-users {
+            opacity: 1;
+        }
+        .movie-card-users .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--background);
+            margin-left: -10px;
+        }
+        .movie-card-users .user-avatar:first-child { margin-left: 0; }
+        
         .movie-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0) 80%);
+            background: linear-gradient(to top, rgb(0 0 0 / 90%) 10%, rgb(0 0 0 / 70%) 40%, transparent 70%);
             color: white; padding: 1rem; box-sizing: border-box;
             display: flex; flex-direction: column; justify-content: flex-end;
             opacity: 0; transition: opacity 0.2s ease-in-out;
             text-align: left;
         }
         .movie-card:hover .movie-overlay { opacity: 1; }
-        .movie-overlay-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.25rem; }
-        .movie-overlay-meta { font-size: 0.85em; color: var(--text-secondary); margin-bottom: 0.5rem; }
         
-        .movie-overlay-users {
+        .overlay-bottom-content {
             display: flex;
-            margin-top: 0.5rem;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+            gap: 1rem;
         }
-        .movie-overlay-users .user-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid var(--background);
-            margin-left: -8px;
-            transition: transform 0.2s ease;
-        }
-        .movie-overlay-users .user-avatar:first-child { margin-left: 0; }
-        .movie-overlay-users .user-avatar:hover { transform: translateY(-4px); }
+        
+        .movie-overlay-title { font-weight: 700; font-size: 1.5rem; margin: 0 0 0.5rem 0; line-height: 1.2; color: var(--text-primary); }
+        .movie-overlay-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.9em; color: var(--text-secondary); margin-bottom: 0.75rem; }
+        .movie-overlay-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        .movie-overlay-meta .icon { width: 14px; height: 14px; fill: currentColor; }
 
+        .movie-overlay-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .movie-overlay-genres .genre-tag {
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--text-secondary);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+        
         .stremio-play-btn {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            width: 44px;
-            height: 44px;
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
             background-color: var(--stremio);
-            border-radius: 50%;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             transform: scale(0);
-            transition: transform 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
         }
         .movie-card:hover .stremio-play-btn {
             transform: scale(1);
         }
+        .stremio-play-btn:hover {
+            background-color: #5228a3;
+            transform: scale(1.1);
+        }
         .stremio-play-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             fill: white;
         }
 
@@ -205,22 +240,22 @@
         .sort-button:hover { color: var(--text-primary); }
         .sort-button.active { color: var(--primary); }
         #reset-button {
-    display: block;
-    width: 36px;
-    height: 36px;
-    color: var(--text-secondary);
-    transition: color 0.2s ease-in-out;
-}
+            display: block;
+            width: 36px;
+            height: 36px;
+            color: var(--text-secondary);
+            transition: color 0.2s ease-in-out;
+        }
 
-#reset-button:hover {
-    color: var(--primary); 
-}
+        #reset-button:hover {
+            color: var(--primary); 
+        }
 
-#reset-button svg {
-    width: 100%;
-    height: 100%;
-    fill: currentColor; 
-}
+        #reset-button svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor; 
+        }
         #side-panel-backdrop {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.7); z-index: 998;
@@ -517,25 +552,46 @@
                 <ul class="movie-list" id="movie-list">
                     {% for movie in movies %}
                         <li class="movie-card" data-index="{{ loop.index0 }}">
+                            <div class="movie-card-users">
+                                {% for user in movie.users %}
+                                    <img class="user-avatar" src="{{ user.avatar }}" title="{{ user.name }}">
+                                {% endfor %}
+                            </div>
                             <img src="{{ movie.poster_url }}" alt="Poster for {{ movie.title }}">
                             <div class="movie-overlay">
-                                <div class="movie-overlay-title">{{ movie.title }}</div>
-                                <div class="movie-overlay-meta">
-                                    <span>{{ movie.release_year }}</span>
-                                    {% if movie.formatted_runtime %}<span>•</span><span>{{ movie.formatted_runtime }}</span>{% endif %}
-                                    <span>• ★ {{ movie.formatted_rating }}</span>
-                                </div>
-                                <div class="movie-overlay-users">
-                                    {% for user in movie.users %}
-                                        <img class="user-avatar" src="{{ user.avatar }}" title="{{ user.name }}">
-                                    {% endfor %}
+                                <div class="overlay-bottom-content">
+                                    <div class="overlay-info-left">
+                                        <div class="movie-overlay-title">{{ movie.title }}</div>
+                                        <div class="movie-overlay-meta">
+                                            <span>{{ movie.release_year }}</span>
+                                            {% if movie.formatted_runtime and movie.runtime > 0 %}
+                                            <span>
+                                                <svg class="icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>
+                                                {{ movie.formatted_runtime }}
+                                            </span>
+                                            {% endif %}
+                                             {% if movie.rating > 0 %}
+                                            <span>
+                                                 <svg class="icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                                                {{ movie.formatted_rating }}
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="movie-overlay-genres">
+                                             {% for genre in movie.genres[:3] %}
+                                                <span class="genre-tag">{{ genre }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% if movie.imdb_id %}
+                                    <div class="overlay-info-right">
+                                        <a href="stremio://detail/movie/{{ movie.imdb_id }}" class="stremio-play-btn" onclick="event.stopPropagation();">
+                                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                                        </a>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
-                            {% if movie.imdb_id %}
-                            <a href="stremio://detail/movie/{{ movie.imdb_id }}" class="stremio-play-btn">
-                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
-                            </a>
-                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
@@ -626,10 +682,6 @@
             
             if (movieList) {
                 movieList.addEventListener('click', function(event) {
-                    if (event.target.closest('.stremio-play-btn')) {
-                        return;
-                    }
-
                     const card = event.target.closest('.movie-card');
                     if (!card) return;
 
