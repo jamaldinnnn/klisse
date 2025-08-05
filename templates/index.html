@@ -136,94 +136,68 @@
         .movie-card-users .user-avatar:first-child { margin-left: 0; }
         
         .movie-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to top, rgb(0 0 0 / 90%) 10%, rgb(0 0 0 / 70%) 40%, transparent 70%);
-    color: white; 
-    box-sizing: border-box;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    opacity: 0; transition: opacity 0.2s ease-in-out;
-    text-align: left;
-    
-    /* Fluid font-size: scales between 0.6rem and 1.1rem based on viewport */
-    font-size: clamp(0.6rem, 2.5vw, 1.1rem); 
-    padding: 1em; /* Padding is now relative */
-}
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgb(0 0 0 / 90%) 10%, rgb(0 0 0 / 70%) 40%, transparent 70%);
+            color: white; padding: 1rem; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            opacity: 0; transition: opacity 0.2s ease-in-out;
+            text-align: left;
+        }
+        .movie-card:hover .movie-overlay { opacity: 1; }
+        
+        .overlay-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+            gap: 1rem;
+        }
+        
+        .movie-overlay-title { font-weight: 700; font-size: 1.5rem; margin: 0 0 0.5rem 0; line-height: 1.2; color: var(--text-primary); }
+        .movie-overlay-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.9em; color: var(--text-secondary); margin-bottom: 0.75rem; }
+        .movie-overlay-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        .movie-overlay-meta .icon { width: 14px; height: 14px; fill: currentColor; }
 
-.movie-card:hover .movie-overlay { 
-    opacity: 1; 
-}
-
-/* All child elements now use 'em' to scale with the overlay's font-size */
-.overlay-bottom-content {
+        .movie-overlay-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .movie-overlay-genres .genre-tag {
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--text-secondary);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+        
+       .overlay-bottom-content {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    gap: 1em;
+    gap: 1rem;
     width: 100%;
 }
 
-.overlay-info-left {
-    flex: 1;
-    min-width: 0;
-}
-
-.overlay-info-right {
-    flex-shrink: 0;
-}
-
-.movie-overlay-title { 
+        .movie-overlay-title { 
     font-weight: 700; 
-    font-size: 1.7em; /* Relative to overlay font-size */
-    margin: 0 0 0.5em 0; 
+    font-size: 1.5rem; 
+    margin: 0 0 0.5rem 0; 
     line-height: 1.2; 
     color: var(--text-primary); 
-    word-break: break-word;
-}
-
-.movie-overlay-meta { 
-    display: flex; 
-    align-items: center; 
-    gap: 1em; 
-    font-size: 1.1em; 
-    color: var(--text-secondary); 
-    margin-bottom: 0.8em; 
-}
-
-.movie-overlay-meta span { 
-    display: flex; 
-    align-items: center; 
-    gap: 0.3em; 
-}
-
-.movie-overlay-meta .icon { 
-    width: 1em; 
-    height: 1em; 
-}
-
-.movie-overlay-genres {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-}
-
-.movie-overlay-genres .genre-tag {
-    background-color: transparent;
-    border: 1px solid rgba(255,255,255,0.4);
-    color: var(--text-secondary);
-    padding: 0.25em 0.8em; /* Relative padding */
-    border-radius: 10em; /* Always creates a perfect pill shape */
-    font-size: 0.9em;
-    font-weight: 500;
+    word-break: break-word; /* Prevents long titles from overflowing */
 }
 
 .stremio-play-btn {
-    width: 6em;  /* Button size now scales with text */
-    height: 6em; /* Button size now scales with text */
+    width: 90px;
+    height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
     transform: scale(0);
-    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out; 
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
     background-color: transparent;
     border-radius: 0;
 }
