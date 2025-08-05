@@ -182,18 +182,27 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        #sort-controls {
-            padding: 0;
-            border-top: none;
-            text-align: center;
-        }
-        .sort-button {
-    background: none; border: none; color: var(--text-secondary);
-    font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700;
-    margin: 0 0.75rem; cursor: pointer; transition: color 0.2s;
+       #sort-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border-top: none;
+}
+
+.sort-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0 0.75rem;
+    cursor: pointer;
+    transition: color 0.2s;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.4rem; 
 }
 
 .sort-icon {
@@ -201,6 +210,7 @@
     height: 18px;
     fill: currentColor;
 }
+
         .sort-button:hover { color: var(--text-primary); }
         .sort-button.active { color: var(--primary); }
         #reset-button {
