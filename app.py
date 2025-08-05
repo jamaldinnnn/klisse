@@ -55,14 +55,15 @@ def get_tmdb_details(session, movie_title):
         details_data = details_response.json()
 
         genres = [genre['name'] for genre in details_data.get('genres', [])]
-            director = {'name': 'N/A', 'id': None}
+
+        director = {'name': 'N/A', 'id': None}
         if 'credits' in details_data:
             for member in details_data['credits']['crew']:
                 if member['job'] == 'Director':
                     director = {'name': member['name'], 'id': member['id']}
                     break
 
- cast = [{'name': actor['name'], 'id': actor['id']} for actor in details_data.get('credits', {}).get('cast', [])[:5]]
+        cast = [{'name': actor['name'], 'id': actor['id']} for actor in details_data.get('credits', {}).get('cast', [])[:5]]
 
         logo_path = ""
         no_lang_logo_path = ""
@@ -234,4 +235,3 @@ def results():
     sorted_movies = sorted(processed_movies, key=lambda x: (x['count'], x['rating']), reverse=True)
 
     return render_template('index.html', movies=sorted_movies, users=valid_users)
-                    
