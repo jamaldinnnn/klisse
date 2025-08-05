@@ -4,7 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klisse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">.stremio-play-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 64px; /* Increased size for the new button */
+    height: 64px;
+    background-color: var(--stremio);
+    border-radius: 50%; /* Makes the background circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+.movie-card:hover .stremio-play-btn {
+    transform: scale(1);
+}
+
+.stremio-play-btn:hover {
+    background-color: #5228a3;
+    transform: scale(1.1); /* Adds a nice hover effect */
+}
+
+.stremio-play-btn svg {
+    width: 70%; /* Scales the SVG within the button */
+    height: 70%;
+    fill: white; /* Ensures the play icon inside is white */
+}
+
+/* This targets the inner paths of your new SVG to style them correctly */
+.stremio-play-btn svg .cls-1 {
+    fill: #fecd00;
+}
+.stremio-play-btn svg .cls-2 {
+    fill: var(--stremio); /* Match button background */
+}
+.stremio-play-btn svg .cls-3 {
+    fill: #fefefe;
+}
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
@@ -175,17 +214,17 @@
         
         .stremio-play-btn {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    width: 64px; /* Increased size for the new button */
-    height: 64px;
-    background-color: var(--stremio);
-    border-radius: 50%; /* Makes the background circular */
+    bottom: 0.5rem;
+    right: 0.5rem;
+    width: 90px;  /* Adjust size to match mockup */
+    height: 90px; /* Adjust size to match mockup */
     display: flex;
     align-items: center;
     justify-content: center;
     transform: scale(0);
-    transition: all 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    background-color: transparent; /* No background */
+    border-radius: 0; /* No rounded corners */
 }
 
 .movie-card:hover .stremio-play-btn {
@@ -193,25 +232,12 @@
 }
 
 .stremio-play-btn:hover {
-    background-color: #5228a3;
-    transform: scale(1.1); /* Adds a nice hover effect */
+    transform: scale(1.1); /* Optional: nice hover effect */
 }
 
 .stremio-play-btn svg {
-    width: 70%; /* Scales the SVG within the button */
-    height: 70%;
-    fill: white; /* Ensures the play icon inside is white */
-}
-
-/* This targets the inner paths of your new SVG to style them correctly */
-.stremio-play-btn svg .cls-1 {
-    fill: #fecd00;
-}
-.stremio-play-btn svg .cls-2 {
-    fill: var(--stremio); /* Match button background */
-}
-.stremio-play-btn svg .cls-3 {
-    fill: #fefefe;
+    width: 100%;
+    height: 100%;
 }
 
         .error { 
@@ -600,8 +626,7 @@
                                         </div>
                                     </div>
                                     {% if movie.imdb_id %}
-                                    <div class="overlay-info-right">
-                                        <a href="stremio://detail/movie/{{ movie.imdb_id }}" class="stremio-play-btn" onclick="event.stopPropagation();">
+<a href="stremio://detail/movie/{{ movie.imdb_id }}" class="stremio-play-btn" onclick="event.stopPropagation();">
     <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1128.96 1044.37">
       <defs>
         <style>
@@ -615,8 +640,7 @@
       <path class="cls-3" d="M234.49,191.98c70.58-3.61,134.05,39.55,198.83,62.39,121.99,49.24,236.68,114.58,350.9,179.25,340.6,144.95,160.26,202.7-66.15,318.4-120.52,36.61-251.82,172.63-379.43,109.17-37.96-46.5-35.5-118.82-53.63-175.57-10.96-103.96-31.01-206.57-45.39-309.99-3.53-59.55-44.29-128.32-5.14-183.66Z"/>
     </svg>
 </a>
-                                    </div>
-                                    {% endif %}
+{% endif %}
                                 </div>
                             </div>
                         </li>
