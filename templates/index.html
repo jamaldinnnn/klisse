@@ -174,29 +174,45 @@
         }
         
         .stremio-play-btn {
-            flex-shrink: 0;
-            width: 56px;
-            height: 56px;
-            background-color: var(--stremio);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: scale(0);
-            transition: all 0.2s ease-in-out;
-        }
-        .movie-card:hover .stremio-play-btn {
-            transform: scale(1);
-        }
-        .stremio-play-btn:hover {
-            background-color: #5228a3;
-            transform: scale(1.1);
-        }
-        .stremio-play-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 64px; /* Increased size for the new button */
+    height: 64px;
+    background-color: var(--stremio);
+    border-radius: 50%; /* Makes the background circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+.movie-card:hover .stremio-play-btn {
+    transform: scale(1);
+}
+
+.stremio-play-btn:hover {
+    background-color: #5228a3;
+    transform: scale(1.1); /* Adds a nice hover effect */
+}
+
+.stremio-play-btn svg {
+    width: 70%; /* Scales the SVG within the button */
+    height: 70%;
+    fill: white; /* Ensures the play icon inside is white */
+}
+
+/* This targets the inner paths of your new SVG to style them correctly */
+.stremio-play-btn svg .cls-1 {
+    fill: #fecd00;
+}
+.stremio-play-btn svg .cls-2 {
+    fill: var(--stremio); /* Match button background */
+}
+.stremio-play-btn svg .cls-3 {
+    fill: #fefefe;
+}
 
         .error { 
             color: #ff4d4d; font-weight: bold; background-color: #402020;
@@ -586,8 +602,19 @@
                                     {% if movie.imdb_id %}
                                     <div class="overlay-info-right">
                                         <a href="stremio://detail/movie/{{ movie.imdb_id }}" class="stremio-play-btn" onclick="event.stopPropagation();">
-                                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
-                                        </a>
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1128.96 1044.37">
+      <defs>
+        <style>
+          .cls-1 { fill: #fecd00; }
+          .cls-2 { fill: #030201; }
+          .cls-3 { fill: #fefefe; }
+        </style>
+      </defs>
+      <path class="cls-1" d="M1126.36,868.09c-2.97-246.32-12.75-492.61-30.41-738.34,13.2-180.12-179.61-118.09-294.25-124.27-181.23,4.6-362.38,8.83-543.56,15.75C78.87,33.45-30.71-14.74,7.63,221.92c12.48,186.65,32.01,372.76,48.58,559.11,20.45,146.06-23.7,284.72,182.55,260.6,207.74,2.19,415.68-8.76,622.16-31.61,101.42-22.67,292.48,19.7,265.44-141.92Zm-88.68-293.51c-20.8,150.02-351.94,255.79-479.88,320.83-146.96,83.22-275.85,90.85-311.66-104.93-31.59-122.82-46.22-249.04-61.17-374.79C106.03,23.88,193.1,64.16,499.08,222.89c99.52,62.43,550.12,245.74,538.6,351.69Z"/>
+      <path class="cls-2" d="M1015.62,521.85c-80.01-84-194.83-125.6-294.11-183.04-133.93-69.74-265.32-145.59-404.88-203.36C121.88,39.98,149.64,209.86,173.39,342.55c22.29,110.93,24.11,225.89,49.13,336.69,49.51,307.15,122.9,325.76,391.54,193.39,100.85-60.65,515.41-191.9,401.55-350.78Zm-43.86,46.98c2.95,104.2-348.34,209.48-432.95,268.23-93.12,57.43-228.32,74.46-235.22-68.66-25.82-105.02-33.87-213.07-52.46-319.52-67.4-332.28-40.9-287.37,240.63-169.44,100.41,45.82,196.79,99.45,292.46,154.19,58.14,40.22,174.25,57.92,187.54,135.21Z"/>
+      <path class="cls-3" d="M234.49,191.98c70.58-3.61,134.05,39.55,198.83,62.39,121.99,49.24,236.68,114.58,350.9,179.25,340.6,144.95,160.26,202.7-66.15,318.4-120.52,36.61-251.82,172.63-379.43,109.17-37.96-46.5-35.5-118.82-53.63-175.57-10.96-103.96-31.01-206.57-45.39-309.99-3.53-59.55-44.29-128.32-5.14-183.66Z"/>
+    </svg>
+</a>
                                     </div>
                                     {% endif %}
                                 </div>
