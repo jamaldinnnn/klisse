@@ -206,7 +206,7 @@
     align-items: center;
     justify-content: center;
     transform: scale(0);
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
     background-color: transparent;
     border-radius: 0;
 }
@@ -217,6 +217,7 @@
 
 .stremio-play-btn:hover {
     transform: scale(1.1);
+    filter: drop-shadow(0 0 12px rgba(254, 204, 0, 0.6));
 }
 
 .stremio-play-btn svg {
