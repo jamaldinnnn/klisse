@@ -357,6 +357,17 @@
             flex-wrap: wrap;
             gap: 0.75rem;
         }
+       .watchlist-section {
+    position: absolute;
+    bottom: 8rem;
+    left: 2rem;
+    right: 2rem;
+}
+
+.watchlist-section .panel-section-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
         .panel-user-item {
             display: flex;
             align-items: center;
@@ -643,8 +654,10 @@
                 </div>
             </div>
 
-            <div class="panel-section-title">Watchlist</div>
-            <div id="panel-users"></div>
+            <div class="watchlist-section">
+    <div class="panel-section-title">Watchlist</div>
+    <div id="panel-users"></div>
+</div>
             
             <a id="panel-stremio-link" href="#">
                 <span>Watch on Stremio</span>
