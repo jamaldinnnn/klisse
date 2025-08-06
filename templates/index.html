@@ -300,7 +300,7 @@
         .panel-content { 
             position: relative;
             z-index: 2;
-            padding: 2rem;
+            padding: 2rem 2rem 8rem 2rem;
             height: 100%;
             overflow-y: auto;
             box-sizing: border-box;
@@ -373,17 +373,21 @@
         .panel-user-name { font-size: 0.9em; }
 
         #panel-stremio-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 300px;
-            margin: 2rem auto 0 auto;
-            padding: 1rem;
-            background-color: var(--stremio); color: white;
-            text-decoration: none; font-weight: bold; font-size: 1.2rem;
-            border-radius: 8px; transition: background-color 0.2s;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin: auto auto 2rem auto;
+    padding: 1rem;
+    background-color: var(--stremio); color: white;
+    text-decoration: none; font-weight: bold; font-size: 1.2rem;
+    border-radius: 8px; transition: background-color 0.2s;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
         #panel-stremio-link svg { width: 24px; height: 24px; margin-left: 0.5rem; fill: white; }
         #panel-stremio-link:hover { background-color: #5228a3; }
     </style>
