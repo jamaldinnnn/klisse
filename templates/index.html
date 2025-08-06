@@ -694,12 +694,26 @@
                     document.getElementById('panel-background').style.backgroundImage = `url(${data.backdrop_url})`;
                     
                     const logoEl = document.getElementById('panel-logo');
-                    if (data.logo_url) {
-                        logoEl.src = data.logo_url;
-                        logoEl.style.display = 'block';
-                    } else {
-                        logoEl.style.display = 'none';
-                    }
+if (data.logo_url) {
+    logoEl.src = data.logo_url;
+    logoEl.style.display = 'block';
+    logoEl.alt = data.title;
+    // Hide text fallback if logo exists
+    const textFallback = document.getElementById('panel-logo-text');
+    if (textFallback) textFallback.style.display = 'none';
+} else {
+    logoEl.style.display = 'none';
+    // Show text fallback
+    let textFallback = document.getElementById('panel-logo-text');
+    if (!textFallback) {
+        textFallback = document.createElement('h2');
+        textFallback.id = 'panel-logo-text';
+        textFallback.style.cssText = 'color: var(--text-primary); font-size: 2rem; font-weight: 900; text-align: center; margin: 1rem 0;';
+        logoEl.parentNode.insertBefore(textFallback, logoEl.nextSibling);
+    }
+    textFallback.textContent = data.title;
+    textFallback.style.display = 'block';
+}
 
                     document.getElementById('panel-year').textContent = data.release_year;
                     document.getElementById('panel-runtime').querySelector('span').textContent = data.formatted_runtime;
